@@ -1,0 +1,5 @@
+import {siteConfig} from "@/config/site";
+import {formatPKR, type Product} from "@/data/products";
+export type OrderLine = {product:Product;size:string;price:number;quantity:number;retailer?:string;retailerUrl?:string};
+export function buildOrderMessage(lines:OrderLine[]){const subtotal=lines.reduce((sum,line)=>sum+line.price*line.quantity,0);const items=lines.map((line,index)=>[String(index+1)+". "+line.product.name,"   Size: "+line.size,"   Quantity: "+line.quantity,"   Price snapshot: "+formatPKR(line.price)+(line.retailer?" (listed by "+line.retailer+")":"")].concat(line.retailerUrl?["   Listing: "+line.retailerUrl]:[]).join("\n"));return "Hello! I would like to check availability and place an order.\n\nProducts:\n"+items.join("\n\n")+"\n\nSubtotal from retailer snapshots: "+formatPKR(subtotal)+"\n\nPlease confirm current price, availability and delivery details. This message starts an inquiry and is not a completed payment.";}
+export function whatsappUrl(message:string){let phone=siteConfig.whatsappNumber.replace(/\D/g,"");if(/^0\d{10}$/.test(phone))phone="92"+phone.slice(1);return phone?"https://wa.me/"+phone+"?text="+encodeURIComponent(message):null}

@@ -1,0 +1,2 @@
+import type {MetadataRoute} from "next";import {products} from "@/data/products";import {siteConfig} from "@/config/site";
+export default function sitemap():MetadataRoute.Sitemap{const routes=["","/shop","/about","/contact"];return [...routes.map(path=>({url:`${siteConfig.url}${path}`,lastModified:new Date(),changeFrequency:"weekly" as const,priority:path===""?1:.7})),...products.map(p=>({url:`${siteConfig.url}/products/${p.slug}`,lastModified:new Date(),changeFrequency:"monthly" as const,priority:.8}))]}

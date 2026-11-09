@@ -1,0 +1,1 @@
+import type {MetadataRoute} from "next";export default function manifest():MetadataRoute.Manifest{return{name:"Amla House",short_name:"Amla House",description:"An independent Amla hair-care portfolio concept.",start_url:"/",display:"standalone",background_color:"#f4f2e9",theme_color:"#0a1712",icons:[]}}
